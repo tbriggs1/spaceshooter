@@ -1,22 +1,23 @@
 import pygame
-from ship import Ship
+from ships.ship import Ship
+import asyncio
 
+pygame.init()
+screen = pygame.display.set_mode((1280, 720))
+clock = pygame.time.Clock()
+running = True
+dt = 0
+async def main():
 
-
-
-def main():
-    pygame.init()
-    screen = pygame.display.set_mode((1280, 720))
-    clock = pygame.time.Clock()
-    dt = 0
-
-    running = True
+    global running, dt
 
     player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
     enemy_pos = pygame.Vector2(screen.get_width() / 2.5, screen.get_height() / 2.5)
 
     while running:
         keys = pygame.key.get_pressed()
+
+        screen.fill("purple")
         # poll for events
         # pygame.QUIT event means the user clicked X to close your windowdddd
         for event in pygame.event.get():
@@ -29,9 +30,6 @@ def main():
             if player_pos.y < 0 or player_pos.x < 0:
                 running = False
 
-        screen.fill("purple")
-
-        pygame.display.Info()
 
         player_ship = Ship(400, "blue", 40, screen, player_pos)
         enemy_ship = Ship(200, "Green", 40, screen, enemy_pos)
@@ -46,7 +44,8 @@ def main():
         # independent physics.
         dt = clock.tick(60) / 1000
 
-    pygame.quit()
+        await asyncio.sleep(0)
+
 
 def player_position(keys, player_pos, dt):
     if keys[pygame.K_w]:
@@ -58,5 +57,5 @@ def player_position(keys, player_pos, dt):
     if keys[pygame.K_d]:
         player_pos.x += 500 * dt
 
-main()
+asyncio.run(main())
 
