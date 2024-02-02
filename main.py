@@ -13,6 +13,7 @@ def main():
     running = True
 
     player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
+    enemy_pos = pygame.Vector2(screen.get_width() / 2.5, screen.get_height() / 2.5)
 
     while running:
         keys = pygame.key.get_pressed()
@@ -33,6 +34,7 @@ def main():
         pygame.display.Info()
 
         player_ship = Ship(400, "blue", 40, screen, player_pos)
+        enemy_ship = Ship(200, "Green", 40, screen, enemy_pos)
 
         player_position(keys, player_pos, dt)
 
