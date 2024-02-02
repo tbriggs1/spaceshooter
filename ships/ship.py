@@ -10,4 +10,7 @@ class Ship:
 
         pygame.draw.circle(self.screen, self.colour, self.ship_pos, self.size)
 
+    def Bullet(self):
+        return pygame.draw.circle(self.screen, "white", self.ship_pos, 5)
+
 

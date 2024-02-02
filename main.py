@@ -1,5 +1,6 @@
 import pygame
 from ships.ship import Ship
+from ships.player_ship import PlayerShip
 import asyncio
 
 pygame.init()
@@ -31,10 +32,11 @@ async def main():
                 running = False
 
 
-        player_ship = Ship(400, "blue", 40, screen, player_pos)
+        player_ship = PlayerShip(400, "blue", 40, screen, player_pos, keys, dt)
         enemy_ship = Ship(200, "Green", 40, screen, enemy_pos)
 
-        player_position(keys, player_pos, dt)
+        player_ship.SetPlayerPosition()
+        player_ship.Fire()
 
          # flip() the display to put your work on screen
         pygame.display.flip()
@@ -45,17 +47,6 @@ async def main():
         dt = clock.tick(60) / 1000
 
         await asyncio.sleep(0)
-
-
-def player_position(keys, player_pos, dt):
-    if keys[pygame.K_w]:
-        player_pos.y -= 500 * dt
-    if keys[pygame.K_s]:
-        player_pos.y += 500 * dt
-    if keys[pygame.K_a]:
-        player_pos.x -= 500 * dt
-    if keys[pygame.K_d]:
-        player_pos.x += 500 * dt
 
 asyncio.run(main())
 
