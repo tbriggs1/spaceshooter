@@ -38,12 +38,7 @@ async def main():
 
 
         player_ship = PlayerShip(400, "blue", 40, screen, player_pos, keys, dt)
-        player_ship.draw(screen)
         enemy_ship = Ship(200, "green", 40, screen, enemy_pos)
-        enemy_ship.draw(screen)
-
-        # player.draw(screen)
-
 
         player_ship.SetPlayerPosition()
 

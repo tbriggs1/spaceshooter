@@ -8,15 +8,15 @@ class Ship(pygame.sprite.Sprite):
         self.size = size
         self.screen = screen
         self.ship_pos = ship_pos
+        self.angle = 0
         self.ship_image = ship_image
 
+        self.screen.blit(pygame.image.load(self.ship_image), self.ship_pos)
 
+    # def draw(self, surface):
+    #     surface.blit(pygame.image.load(self.ship_image), self.ship_pos)
 
-    # def update(self):
-    #     self.position = (self.ship_pos)
-
-    def draw(self, surface):
-        surface.blit(pygame.image.load(self.ship_image), self.ship_pos)
-
-    # def setShipImage(self):
-    #     self.ship_image = "sprites/player_idle.png"
+    def rot_center(self, image, rect, angle):
+        rot_image = pygame.transform.rotate(image, angle)
+        rot_rect = rot_image.get_rect(center=rect.center)
+        return rot_image, rot_rect

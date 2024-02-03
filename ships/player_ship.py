@@ -25,9 +25,9 @@ class PlayerShip(Ship):
         if self.keys[pygame.K_d]:
             self.ship_pos.x += 500 * self.dt
 
-    def SetPlayerRotation(self, angle):
-        rotated_surface = pygame.transform.rotate(self.screen, angle)
-        return rotated_surface
+    # def SetPlayerRotation(self, angle):
+    #     rotated_surface = pygame.transform.rotate(self.screen, angle)
+    #     return rotated_surface
 
     def Fire(self):
         bullet_pos = self.ship_pos.copy()
