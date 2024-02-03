@@ -15,11 +15,12 @@ async def main():
 
     player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
     enemy_pos = pygame.Vector2(screen.get_width() / 2.5, screen.get_height() / 2.5)
-
+    # player = Player(320, 240, 0, 0)
+    angle = 0
     while running:
         keys = pygame.key.get_pressed()
 
-        screen.fill("purple")
+        screen.fill("black")
         # poll for events
         # pygame.QUIT event means the user clicked X to close your windowdddd
         for event in pygame.event.get():
@@ -37,7 +38,11 @@ async def main():
 
 
         player_ship = PlayerShip(400, "blue", 40, screen, player_pos, keys, dt)
+        player_ship.draw(screen)
         enemy_ship = Ship(200, "green", 40, screen, enemy_pos)
+        enemy_ship.draw(screen)
+
+        # player.draw(screen)
 
 
         player_ship.SetPlayerPosition()
