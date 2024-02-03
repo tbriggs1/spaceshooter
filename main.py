@@ -1,6 +1,7 @@
 import pygame
 from ships.ship import Ship
 from ships.player_ship import PlayerShip
+from ammo.bullet import Bullet
 import asyncio
 
 pygame.init()
@@ -30,13 +31,19 @@ async def main():
                 running = False
             if player_pos.y < 0 or player_pos.x < 0:
                 running = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    player_ship.Fire()
 
 
         player_ship = PlayerShip(400, "blue", 40, screen, player_pos, keys, dt)
-        enemy_ship = Ship(200, "Green", 40, screen, enemy_pos)
+        enemy_ship = Ship(200, "green", 40, screen, enemy_pos)
+
 
         player_ship.SetPlayerPosition()
-        player_ship.Fire()
+
+        player_ship.drawBullets()
+
 
          # flip() the display to put your work on screen
         pygame.display.flip()

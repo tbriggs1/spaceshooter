@@ -1,4 +1,5 @@
 from ships.ship import Ship
+from ammo.bullet import Bullet
 import pygame
 class PlayerShip(Ship):
     bullets = []
@@ -7,8 +8,15 @@ class PlayerShip(Ship):
         self.keys = keys
         self.dt = dt
 
+
     def GetPlayerPosition(self):
         return self.ship_pos
+
+    def setBullets(self, bullet):
+        self.bullets.append(bullet)
+
+    def GetBullets(self):
+        return self.bullets
 
     def SetPlayerPosition(self):
         if self.keys[pygame.K_w]:
@@ -21,9 +29,11 @@ class PlayerShip(Ship):
             self.ship_pos.x += 500 * self.dt
 
     def Fire(self):
+        bullet_pos = self.ship_pos.copy()
+        new_bullet = Bullet(5, 10, self.screen, bullet_pos)
+        self.setBullets(new_bullet)
 
-
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    self.bullets.append(super().Bullet())
+    def drawBullets(self):
+        for bullet in self.bullets:
+            bullet.setBulletPos()
+            bullet.drawBullet()
