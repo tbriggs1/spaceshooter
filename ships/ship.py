@@ -9,14 +9,14 @@ class Ship(pygame.sprite.Sprite):
         self.screen = screen
         self.ship_pos = ship_pos
         self.angle = 0
-        self.ship_image = ship_image
+        self.ship_image = pygame.image.load(ship_image)  # Load the image here
+        self.rotated_image = self.ship_image  # Initial image is not rotated
 
-        self.screen.blit(pygame.image.load(self.ship_image), self.ship_pos)
+    def rotate(self, angle):
+        # Rotate the ship image and update the angle
+        self.angle += angle
+        self.rotated_image = pygame.transform.rotate(self.ship_image, self.angle)
 
-    # def draw(self, surface):
-    #     surface.blit(pygame.image.load(self.ship_image), self.ship_pos)
-
-    def rot_center(self, image, rect, angle):
-        rot_image = pygame.transform.rotate(image, angle)
-        rot_rect = rot_image.get_rect(center=rect.center)
-        return rot_image, rot_rect
+    def update(self):
+        # Blit the rotated image onto the screen
+        self.screen.blit(self.rotated_image, self.ship_pos)

@@ -9,17 +9,21 @@ screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 running = True
 dt = 0
+
 async def main():
 
     global running, dt
 
+
     player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
     enemy_pos = pygame.Vector2(screen.get_width() / 2.5, screen.get_height() / 2.5)
-    # player = Player(320, 240, 0, 0)
+
+    player_ship = PlayerShip(400, "blue", 40, screen, player_pos, dt)
+    enemy_ship = Ship(200, "green", 40, screen, enemy_pos)
     angle = 0
     while running:
-        keys = pygame.key.get_pressed()
 
+        keys = pygame.key.get_pressed()
         screen.fill("black")
         # poll for events
         # pygame.QUIT event means the user clicked X to close your windowdddd
@@ -37,15 +41,17 @@ async def main():
                     player_ship.Fire()
 
 
-        player_ship = PlayerShip(400, "blue", 40, screen, player_pos, keys, dt)
-        enemy_ship = Ship(200, "green", 40, screen, enemy_pos)
-
         player_ship.SetPlayerPosition()
 
         player_ship.drawBullets()
 
+        enemy_ship.rotate(1)
 
-         # flip() the display to put your work on screen
+        enemy_ship.update()
+        player_ship.update()
+
+
+        # flip() the display to put your work on screen
         pygame.display.flip()
 
         # limits FPS to 60
