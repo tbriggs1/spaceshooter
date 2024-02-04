@@ -44,12 +44,9 @@ async def main():
 
         player_ship.drawBullets()
 
-        enemy_ship.rotate(1)
-
         enemy_ship.update_rotation()
+        player_ship.update()
 
-        player_ship.rotate(player_ship.angle)
-        player_ship.update_rotation()
 
         # flip() the display to put your work on screen
         pygame.display.flip()

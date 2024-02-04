@@ -7,10 +7,12 @@ class PlayerShip(Ship):
         super().__init__(speed, colour, size, screen, ship_pos, ship_image=ship_image)
         self.keys = pygame.key.get_pressed()
         self.dt = dt
-        self.angle = 1
+        self.angle = 50
         self.ship_image = pygame.image.load(ship_image)  # Load the image here
         self.ship_path = ship_image
         self.rotated_image = self.ship_image  # Initial image is not rotated
+
+
 
     def GetPlayerPosition(self):
         return self.ship_pos
@@ -26,8 +28,7 @@ class PlayerShip(Ship):
         if self.keys[pygame.K_a]:
             self.ship_pos.x -= 500 * self.dt
         if self.keys[pygame.K_d]:
-            print(self.angle)
-            self.angle = self.angle + 10
+            self.ship_pos.x += 500 * self.dt
 
     def Fire(self):
         bullet_pos = self.ship_pos.copy()

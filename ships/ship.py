@@ -13,6 +13,8 @@ class Ship(pygame.sprite.Sprite):
         self.ship_path = ship_image
         self.rotated_image = self.ship_image  # Initial image is not rotated
 
+        self.rotate(90)
+
     def rotate(self, angle):
         # Rotate the ship image and update the angle
         self.angle += angle
