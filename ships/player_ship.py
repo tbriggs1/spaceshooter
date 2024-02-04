@@ -3,9 +3,9 @@ from ammo.bullet import Bullet
 import pygame
 class PlayerShip(Ship):
     bullets = []
-    def __init__(self, speed, colour, size, screen, ship_pos, keys, dt):
+    def __init__(self, speed, colour, size, screen, ship_pos, dt):
         super().__init__(speed, colour, size, screen, ship_pos, ship_image="sprites/player_idle.png")
-        self.keys = keys
+        self.keys = pygame.key.get_pressed()
         self.dt = dt
 
 

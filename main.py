@@ -17,13 +17,10 @@ async def main():
 
     player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
     enemy_pos = pygame.Vector2(screen.get_width() / 2.5, screen.get_height() / 2.5)
-
-    player_ship = PlayerShip(400, "blue", 40, screen, player_pos, dt)
     enemy_ship = Ship(200, "green", 40, screen, enemy_pos)
+
     angle = 0
     while running:
-
-        keys = pygame.key.get_pressed()
         screen.fill("black")
         # poll for events
         # pygame.QUIT event means the user clicked X to close your windowdddd
@@ -40,6 +37,8 @@ async def main():
                 if event.key == pygame.K_SPACE:
                     player_ship.Fire()
 
+        player_ship = PlayerShip(400, "blue", 40, screen, player_pos, dt)
+
 
         player_ship.SetPlayerPosition()
 
@@ -47,7 +46,7 @@ async def main():
 
         enemy_ship.rotate(1)
 
-        enemy_ship.update()
+        enemy_ship.update_rotation()
         player_ship.update()
 
 
