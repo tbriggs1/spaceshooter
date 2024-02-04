@@ -19,6 +19,7 @@ async def main():
     enemy_pos = pygame.Vector2(screen.get_width() / 2.5, screen.get_height() / 2.5)
     enemy_ship = Ship(200, "green", 40, screen, enemy_pos)
 
+
     angle = 0
     while running:
         screen.fill("black")
@@ -39,7 +40,6 @@ async def main():
 
         player_ship = PlayerShip(400, "blue", 40, screen, player_pos, dt)
 
-
         player_ship.SetPlayerPosition()
 
         player_ship.drawBullets()
@@ -47,8 +47,9 @@ async def main():
         enemy_ship.rotate(1)
 
         enemy_ship.update_rotation()
-        player_ship.update()
 
+        player_ship.rotate(player_ship.angle)
+        player_ship.update_rotation()
 
         # flip() the display to put your work on screen
         pygame.display.flip()
