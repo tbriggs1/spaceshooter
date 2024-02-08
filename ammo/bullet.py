@@ -7,8 +7,8 @@ class Bullet():
         self.screen = screen
         self.bullet_pos = bullet_pos
 
-        self.bullet_pos.x = bullet_pos.x + 70
-        self.bullet_pos.y = bullet_pos.y + 64
+        self.bullet_pos.x = bullet_pos.x + 24
+        self.bullet_pos.y = bullet_pos.y + 20
 
     def drawBullet(self):
         pygame.draw.circle(self.screen, "white", self.bullet_pos, 5)
@@ -18,5 +18,5 @@ class Bullet():
 
     def setBulletPos(self):
         print(self.bullet_pos)
-        self.bullet_pos.x = self.bullet_pos.x + 3
-        self.bullet_pos.y = self.bullet_pos.y + 1
+        self.bullet_pos.x = self.bullet_pos.x + 0
+        self.bullet_pos.y = self.bullet_pos.y + -4
