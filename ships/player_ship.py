@@ -15,6 +15,8 @@ class PlayerShip(Ship):
         self.rotate(self.angle)
         self.update_rotation()
 
+        self.rect = self.ship_image.get_rect(topleft = (self.ship_pos.x, self.ship_pos.y))
+
     def GetPlayerPosition(self):
         return self.ship_pos
 
@@ -41,3 +43,7 @@ class PlayerShip(Ship):
         for bullet in self.bullets:
             bullet.setBulletPos()
             bullet.drawBullet()
+
+    def printBullets(self):
+        for bullet in self.bullets:
+            print(bullet.bullet_pos.x)

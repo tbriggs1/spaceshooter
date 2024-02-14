@@ -10,6 +10,7 @@ class Bullet():
         self.bullet_pos.x = bullet_pos.x + 24
         self.bullet_pos.y = bullet_pos.y + 20
 
+
     def drawBullet(self):
         pygame.draw.circle(self.screen, "white", self.bullet_pos, 5)
 
@@ -17,6 +18,5 @@ class Bullet():
         return self.bullet_pos
 
     def setBulletPos(self):
-        print(self.bullet_pos)
         self.bullet_pos.x = self.bullet_pos.x + 0
         self.bullet_pos.y = self.bullet_pos.y + -4

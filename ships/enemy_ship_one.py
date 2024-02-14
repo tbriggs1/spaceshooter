@@ -16,6 +16,8 @@ class EnemyShipOne(Ship):
         self.update_rotation()
         self.UpdatePosition()
 
+        self.rect = self.ship_image.get_rect(topleft=(self.ship_pos.x, self.ship_pos.y))
+
     def GetPlayerPosition(self):
         return self.ship_pos
 

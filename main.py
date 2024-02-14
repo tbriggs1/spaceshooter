@@ -19,9 +19,6 @@ async def main():
     player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
     enemy_pos = pygame.Vector2(screen.get_width() / 2.5, -10)
 
-
-
-
     angle = 0
     while running:
         screen.fill("black")
@@ -40,19 +37,16 @@ async def main():
                 if event.key == pygame.K_SPACE:
                     player_ship.Fire()
 
-
         player_ship = PlayerShip(100, "blue", 20, screen, player_pos, dt)
         second_enemy_ship = EnemyShipOne(100, "blue", 40,  screen, enemy_pos, dt)
-
 
         player_ship.SetPlayerPosition()
 
         player_ship.drawBullets()
 
-        second_enemy_ship.update_rotation()
+        player_ship.printBullets()
 
-
-
+        collide = second_enemy_ship.rect.colliderect(player_ship)
 
 
         # flip() the display to put your work on screen
