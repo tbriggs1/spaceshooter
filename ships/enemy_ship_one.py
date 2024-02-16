@@ -8,18 +8,18 @@ class EnemyShipOne(Ship):
         self.keys = pygame.key.get_pressed()
         self.dt = dt
         self.angle = 0
-        self.ship_image = pygame.image.load(ship_image)  # Load the image here
+        self.image = pygame.image.load(ship_image)  # Load the image here
         self.ship_path = ship_image
-        self.rotated_image = self.ship_image  # Initial image is not rotated
+        self.rotated_image = self.image  # Initial image is not rotated
 
         self.rotate(90)
         self.update_rotation()
-        self.UpdatePosition()
 
-        self.rect = self.ship_image.get_rect(topleft=(self.ship_pos.x, self.ship_pos.y))
+        # self.rect = self.image.get_rect(topleft=(self.ship_pos.x, self.ship_pos.y))
 
     def GetPlayerPosition(self):
         return self.ship_pos
 
-    def UpdatePosition(self):
-        self.ship_pos.y += 100 * self.dt
+    def UpdatePosition(self, dt):
+        self.rect.y += int(100 * dt)
+        self.ship_pos = pygame.Vector2(self.rect.topleft)

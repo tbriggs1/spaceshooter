@@ -18,5 +18,6 @@ class Bullet():
         return self.bullet_pos
 
     def setBulletPos(self):
+        # Moves bullet object in y direction
         self.bullet_pos.x = self.bullet_pos.x + 0
         self.bullet_pos.y = self.bullet_pos.y + -4

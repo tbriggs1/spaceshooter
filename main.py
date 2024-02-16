@@ -14,10 +14,15 @@ dt = 0
 async def main():
 
     global running, dt
-
-
     player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
     enemy_pos = pygame.Vector2(screen.get_width() / 2.5, -10)
+    player_ship = PlayerShip(100, "blue", 20, screen, player_pos, dt)
+    player_speed = 300
+    second_enemy_ship = EnemyShipOne(100, "blue", 40, screen, enemy_pos, dt)
+
+    all_ships = pygame.sprite.Group()
+    all_ships.add(player_ship, second_enemy_ship)
+    second_enemy_ship.update_rotation()
 
     angle = 0
     while running:
@@ -37,17 +42,26 @@ async def main():
                 if event.key == pygame.K_SPACE:
                     player_ship.Fire()
 
-        player_ship = PlayerShip(100, "blue", 20, screen, player_pos, dt)
-        second_enemy_ship = EnemyShipOne(100, "blue", 40,  screen, enemy_pos, dt)
-
-        player_ship.SetPlayerPosition()
+        player_ship.SetPlayerPosition(dt)
 
         player_ship.drawBullets()
+        #
+        second_enemy_ship.update_rotation()
+        # second_enemy_ship.UpdatePosition(dt)
 
-        player_ship.printBullets()
 
-        collide = second_enemy_ship.rect.colliderect(player_ship)
 
+        # collide = second_enemy_ship.rect.colliderect(player_ship)
+        #
+        for bullet in player_ship.bullets:
+            hit = second_enemy_ship.rect.collidepoint(bullet.bullet_pos.x, bullet.bullet_pos.y)
+            if hit:
+                print("Hit")
+                all_ships.remove(second_enemy_ship)
+
+        # print(player_points)
+        all_ships.update()  # Update all sprites in the group
+        all_ships.draw(screen)
 
         # flip() the display to put your work on screen
         pygame.display.flip()
