@@ -3,8 +3,8 @@ from ammo.bullet import Bullet
 import pygame
 class PlayerShip(Ship):
     bullets = []
-    def __init__(self, speed, colour, size, screen, ship_pos, dt, ship_image="sprites/player_idle.png"):
-        super().__init__(speed, colour, size, screen, ship_pos, ship_image=ship_image)
+    def __init__(self, speed, colour, screen, ship_pos, dt, ship_image):
+        super().__init__(speed, colour, screen, ship_pos, ship_image)
         self.dt = dt
         self.angle = 45
         self.original_image = pygame.image.load(ship_image)  # Load the original image
@@ -49,7 +49,3 @@ class PlayerShip(Ship):
             bullet.setBulletPos()
             bullet.drawBullet()
 
-    def rot_center(self, angle):
-        """Rotate the ship image around its center and adjust its rectangle."""
-        self.image = pygame.transform.rotate(self.original_image, angle)
-        self.rect = self.image.get_rect(center=self.rect.center)

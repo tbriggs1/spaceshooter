@@ -1,11 +1,10 @@
 import pygame
 
 class Ship(pygame.sprite.Sprite):
-    def __init__(self, speed, colour, size, screen, ship_pos, ship_image="sprites/enemy_one.png"):
+    def __init__(self, speed, colour, screen, ship_pos, ship_image):
         super().__init__()
         self.speed = speed
         self.colour = colour
-        self.size = size
         self.screen = screen
         self.ship_pos = ship_pos
         self.angle = 45
@@ -18,3 +17,8 @@ class Ship(pygame.sprite.Sprite):
 
         self.rotated_image = pygame.transform.rotate(self.image, self.angle)
         self.screen.blit(self.rotated_image, self.ship_pos)
+
+    def rot_center(self, angle):
+        """Rotate the ship image around its center and adjust its rectangle."""
+        self.image = pygame.transform.rotate(self.original_image, angle)
+        self.rect = self.image.get_rect(center=self.rect.center)

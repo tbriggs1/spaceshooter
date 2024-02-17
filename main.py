@@ -12,13 +12,13 @@ running = True
 dt = 0
 
 async def main():
-
+    enemy_ships = ["sprites/Ship2.png"]
+    player_ship = "sprites/player_idle.png"
     global running, dt
     player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
     enemy_pos = pygame.Vector2(screen.get_width() / 2.5, -10)
-    player_ship = PlayerShip(100, "blue", 20, screen, player_pos, dt)
-    player_speed = 300
-    second_enemy_ship = EnemyShipOne(100, "blue", 40, screen, enemy_pos, dt)
+    player_ship = PlayerShip(100, "blue", screen, player_pos, dt, player_ship)
+    second_enemy_ship = EnemyShipOne(100, "blue", screen, enemy_pos, dt, enemy_ships[0])
 
     all_ships = pygame.sprite.Group()
 
