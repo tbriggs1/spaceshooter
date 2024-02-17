@@ -7,19 +7,24 @@ class PlayerShip(Ship):
         super().__init__(speed, colour, size, screen, ship_pos, ship_image=ship_image)
         self.dt = dt
         self.angle = 45
-        self.image = pygame.image.load(ship_image)  # Load the image here
+        self.original_image = pygame.image.load(ship_image)  # Load the original image
         self.ship_path = ship_image
-        self.rotated_image = self.image  # Initial image is not rotated
         self.player_speed = 300
-        self.rotate(self.angle)
-        self.update_rotation()
-        self.player_count = 0;
-        # self.rect = self.image.get_rect(topleft = (self.ship_pos.x, self.ship_pos.y))
+        self.player_count = 0
+
+        # Set the initial image to the original image
+        self.image = self.original_image
+        # Now, properly call rot_center to rotate the initial image
+        self.rot_center(90)
+
+        # The rectangle is set based on the rotated image
+        self.rect = self.image.get_rect(center=ship_pos)
 
     def GetPlayerPosition(self):
         return self.ship_pos
 
     def SetPlayerPosition(self, dt):
+        self.rect.topleft = self.ship_pos
         keys = pygame.key.get_pressed()
         if keys[pygame.K_w]:
             self.ship_pos.y -= self.player_speed * dt
@@ -44,3 +49,7 @@ class PlayerShip(Ship):
             bullet.setBulletPos()
             bullet.drawBullet()
 
+    def rot_center(self, angle):
+        """Rotate the ship image around its center and adjust its rectangle."""
+        self.image = pygame.transform.rotate(self.original_image, angle)
+        self.rect = self.image.get_rect(center=self.rect.center)

@@ -21,8 +21,10 @@ async def main():
     second_enemy_ship = EnemyShipOne(100, "blue", 40, screen, enemy_pos, dt)
 
     all_ships = pygame.sprite.Group()
+
+
     all_ships.add(player_ship, second_enemy_ship)
-    second_enemy_ship.update_rotation()
+
 
     angle = 0
     while running:
@@ -43,12 +45,9 @@ async def main():
                     player_ship.Fire()
 
         player_ship.SetPlayerPosition(dt)
-
         player_ship.drawBullets()
         #
-        second_enemy_ship.update_rotation()
-        # second_enemy_ship.UpdatePosition(dt)
-
+        second_enemy_ship.UpdatePosition(dt)
 
 
         # collide = second_enemy_ship.rect.colliderect(player_ship)
