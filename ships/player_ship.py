@@ -41,7 +41,7 @@ class PlayerShip(Ship):
         bullet_pos.x = bullet_pos.x + 40
 
         # Creates a new bullet and appends it to a list
-        new_bullet = Bullet(5, 20, self.screen, bullet_pos)
+        new_bullet = Bullet(5, 4, self.screen, bullet_pos)
         self.bullets.append(new_bullet)
 
     def drawBullets(self):

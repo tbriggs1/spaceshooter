@@ -16,11 +16,23 @@ class EnemyShipOne(Ship):
         # Now, properly call rot_center to rotate the initial image
         self.rot_center(90)
 
-        # The rectangle is set based on the rotated image
-        self.rect = self.image.get_rect(center=ship_pos)
+        self.update_hitbox()
+
     def GetPlayerPosition(self):
         return self.ship_pos
 
     def UpdatePosition(self, dt):
         self.rect.y += int(100 * dt)
         self.ship_pos = pygame.Vector2(self.rect.topleft)
+        self.update_hitbox()
+
+    def update_hitbox(self):
+        padding_horizontal = 50  # Use the existing horizontal padding
+        padding_vertical = 20  # Adjust this value to increase the hitbox height
+
+        # Adjust the hitbox size. Increase height by reducing vertical padding, if needed.
+        self.hitbox = self.rect.inflate(-padding_horizontal * 2, -padding_vertical * 2)
+
+        # Ensure the hitbox is properly positioned
+        # If you need to adjust the position further due to changes in dimensions, do it here
+        self.hitbox.center = self.rect.center
