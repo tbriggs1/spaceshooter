@@ -4,7 +4,7 @@ class EnemyShipOne(Ship):
     bullets = []
     def __init__(self, speed, colour, screen, ship_pos, dt, ship_image="sprites/Ship2.png"):
         super().__init__(speed, colour, screen, ship_pos, ship_image)
-        self.speed = 20
+        self.speed = speed
         self.keys = pygame.key.get_pressed()
         self.dt = dt
         self.original_image = pygame.image.load(ship_image)  # Load the image here
@@ -22,7 +22,7 @@ class EnemyShipOne(Ship):
         return self.ship_pos
 
     def UpdatePosition(self, dt):
-        self.rect.y += int(100 * dt)
+        self.rect.y += int(self.speed * dt)
         self.ship_pos = pygame.Vector2(self.rect.topleft)
         self.update_hitbox()
 
