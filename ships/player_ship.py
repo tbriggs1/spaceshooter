@@ -20,8 +20,8 @@ class PlayerShip(Ship):
         # The rectangle is set based on the rotated image
         self.rect = self.image.get_rect(center=ship_pos)
 
-    def GetPlayerPosition(self):
-        return self.ship_pos
+
+        self.update_hitbox()
 
     def SetPlayerPosition(self, dt):
         self.rect.topleft = self.ship_pos
@@ -34,6 +34,7 @@ class PlayerShip(Ship):
             self.ship_pos.x -= self.player_speed * dt
         if keys[pygame.K_d]:
             self.ship_pos.x += self.player_speed * dt
+        self.update_hitbox()
 
     def Fire(self):
         bullet_pos = self.ship_pos.copy()
@@ -49,3 +50,13 @@ class PlayerShip(Ship):
             bullet.setBulletPos()
             bullet.drawBullet()
 
+    def update_hitbox(self):
+        padding_horizontal = 35  # Use the existing horizontal padding
+        padding_vertical = 20  # Adjust this value to increase the hitbox height
+
+        # Adjust the hitbox size. Increase height by reducing vertical padding, if needed.
+        self.hitbox = self.rect.inflate(-padding_horizontal * 2, -padding_vertical * 2)
+
+        # Ensure the hitbox is properly positioned
+        # If you need to adjust the position further due to changes in dimensions, do it here
+        self.hitbox.center = self.rect.center

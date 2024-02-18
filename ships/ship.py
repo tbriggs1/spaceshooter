@@ -22,3 +22,6 @@ class Ship(pygame.sprite.Sprite):
         """Rotate the ship image around its center and adjust its rectangle."""
         self.image = pygame.transform.rotate(self.original_image, angle)
         self.rect = self.image.get_rect(center=self.rect.center)
+
+        padding = 70
+        self.hitbox = self.rect.inflate(-padding * 2, -padding * 2)

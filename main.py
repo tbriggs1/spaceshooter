@@ -28,9 +28,6 @@ async def main():
     player_ship = PlayerShip(100, "blue", screen, player_pos, dt, player_ship)
     # enemy_pos = pygame.Vector2(screen.get_width() / rand_pos, -120)
 
-
-
-
     all_ships = pygame.sprite.Group()
     all_ships.add(player_ship)
 
@@ -85,8 +82,7 @@ async def main():
                 {"speed": 250, "sprite": "sprites/Ship1.png"},
                 {"speed": 200, "sprite": "sprites/Ship2.png"},
                 {"speed": 150, "sprite": "sprites/Ship3.png"},
-                {"speed": 100, "sprite": "sprites/Ship4.png"},
-                {"speed": 50, "sprite": "sprites/Ship5.png"}
+                {"speed": 100, "sprite": "sprites/Ship4.png"}
             ]
 
             print(random_post_list)
@@ -182,11 +178,11 @@ async def main():
             if bullet in player_ship.bullets:
                 player_ship.bullets.remove(bullet)
 
-        # for ship in enemy_ships:
-        #     if player_ship.rect.colliderect(ship.hitbox):
-        #         print("Player hit by enemy ship!")
-        #         running = False
-        #         break  # Exit the loop since the game is over
+        for ship in enemy_ships:
+            if player_ship.hitbox.colliderect(ship.hitbox):
+                print("Player hit by enemy ship!")
+                running = False
+                break  # Exit the loop since the game is over
 
         all_ships.update()  # Update all sprites in the group
         all_ships.draw(screen)
