@@ -5,12 +5,14 @@ from ships.enemy_ship_one import EnemyShipOne
 from ammo.bullet import Bullet
 import asyncio
 import random
+import sys
 
 pygame.init()
 screen = pygame.display.set_mode((1280, 720))
 
 pygame.font.init()
 font_size = 24
+title_font = pygame.font.Font(None, 36)
 game_font = pygame.font.Font(None, font_size)
 
 
@@ -19,6 +21,98 @@ clock = pygame.time.Clock()
 running = True
 dt = 0
 
+def draw_start_button(text, pos):
+    button_color = (0, 0, 0)
+    button_rect = pygame.Rect(1280 // 2 - 50, pos // 2 - 25, 100, 50)
+
+    pygame.draw.rect(screen, button_color, button_rect)
+    text_surf = title_font.render(text, True, (255, 255, 255))
+    text_rect = text_surf.get_rect(center=button_rect.center)
+
+    screen.blit(text_surf, text_rect)
+    return button_rect
+
+
+def display_leaderboard():
+    running = True
+    while running:
+        screen.fill((0, 0, 0))
+        # Display leaderboard contents here
+        # Example: Display "Tom: 100"
+        text_surf = title_font.render("Tom: 100", True, (255, 255, 255))
+        text_rect = text_surf.get_rect(center=(640, 360))
+        screen.blit(text_surf, text_rect)
+
+        # Draw a "Back" button
+        back_button_rect = draw_start_button("Back", 900)  # Adjust position as needed
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if back_button_rect.collidepoint(event.pos):
+                    running = False  # Exit this loop to return to the main menu
+
+        pygame.display.flip()
+
+def draw_input_box(text, box_rect, cursor_visible):
+    # Draw the prompt text
+    prompt_text = "Enter name:"
+    prompt_surf = title_font.render(prompt_text, True, (255, 255, 255))
+    prompt_rect = prompt_surf.get_rect(right=box_rect.left - 10, centery=box_rect.centery)
+    screen.blit(prompt_surf, prompt_rect)
+
+    # Input box and text
+    background_color = (255, 255, 255)
+    pygame.draw.rect(screen, background_color, box_rect)  # Fill the rectangle with white
+    pygame.draw.rect(screen, (0, 0, 0), box_rect, 2)  # Draw the border
+    text_surf = title_font.render(text, True, (0, 0, 0))
+    screen.blit(text_surf, (box_rect.x + 5, box_rect.y + 5))
+
+    # Cursor
+    if cursor_visible:
+        cursor_x = box_rect.x + 5 + text_surf.get_width() + 2
+        cursor_y = box_rect.y + 5
+        cursor_height = text_surf.get_height()
+        pygame.draw.rect(screen, (0, 0, 0), (cursor_x, cursor_y, 2, cursor_height))
+async def start_menu():
+    running = True
+    player_name = ""
+    input_box = pygame.Rect(1280 // 2 - 100, 200, 200, 50)
+    active = False
+    cursor_visible = False
+    cursor_blink_time = 0
+
+    while running:
+        screen.fill((0, 0, 0))
+        start_button_rect = draw_start_button("Play", 600)
+        leader_board_button = draw_start_button("Leaderboard", 720)
+
+        if pygame.time.get_ticks() - cursor_blink_time > 500:  # Toggle cursor every 500ms
+            cursor_blink_time = pygame.time.get_ticks()
+            cursor_visible = not cursor_visible
+
+        draw_input_box(player_name, input_box, cursor_visible)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if input_box.collidepoint(event.pos):
+                    active = not active
+                elif start_button_rect.collidepoint(event.pos) and player_name:
+                    return player_name  # Proceed to game with player name
+                elif leader_board_button.collidepoint(event.pos):
+                    display_leaderboard()
+            elif event.type == pygame.KEYDOWN and active:
+                if event.key == pygame.K_BACKSPACE:
+                    player_name = player_name[:-1]
+                else:
+                    player_name += event.unicode
+
+        pygame.display.flip()
 async def main():
 
     player_ship = "sprites/player_idle.png"
@@ -44,6 +138,7 @@ async def main():
     number_to_display = 0
     enemy_spawn_interval = 5.0  # Seconds between enemy spawns
     enemy_spawn_timer = enemy_spawn_interval
+
 
     while running:
         screen.fill("black")
@@ -199,5 +294,11 @@ async def main():
 
         await asyncio.sleep(0)
 
-asyncio.run(main())
+
+# Simplify your main loop initiation
+if __name__ == "__main__":
+    player_name = asyncio.run(start_menu())
+    if len(player_name) > 0:
+        asyncio.run(main())
+
 
